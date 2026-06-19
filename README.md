@@ -34,40 +34,51 @@ It combines:
 The system outputs a real-time neural HUD interface over WebSocket + WiFi AP.
 
 🧩 Core Hardware Stack
+
 🧠 Main Compute
 ESP32
+
 🎙️ Audio System
 ES8388
 I2S digital microphone stream (44100 Hz)
 WebSocket real-time audio broadcast
 🌡️ Environmental Sensor
 BME280
+
 🧭 Motion / Spatial Awareness
 MPU9250
 (or equivalent 6-axis IMU + external magnetometer module)
+
 🧠 System Architecture
+
 1. Sensor Layer
 I2S audio capture → buffered PCM stream
 IMU motion vectors (X/Y/Z + rotation)
 Environmental delta tracking (pressure + humidity drift)
-2. Fusion Layer (Experimental Logic)
+
+3. Fusion Layer (Experimental Logic)
 Signal normalization (volume + motion scaling)
 Drift detection (environment + IMU baseline shift)
 Future: EM-field anomaly weighting
-3. Anomaly Engine (“Spider Sense Layer”)
+
+4. Anomaly Engine (“Spider Sense Layer”)
 Detects sudden multi-sensor divergence:
 motion spike + audio spike
 environmental pressure change
 magnetic field shift (planned integration)
+
 Produces:
 Direction vector (bearing estimate)
 Confidence score
 Threat/anomaly classification (experimental)
-4. Output Layer
+
+5. Output Layer
 WebSocket real-time stream (/audioStream)
 Web-based HUD dashboard
 VR-ready rendering pipeline (future Unity/WebXR integration)
+
 🌐 Software Stack
+
 Arduino / ESP32 framework
 Async Web Server:
 ESPAsyncWebServer
@@ -76,6 +87,7 @@ Audio streaming:
 AudioTools
 Web interface:
 Custom WebSocket audio renderer (Web Audio API)
+
 🧪 Key Features (Current State)
 🎧 Neural Audio Stream
 Real-time PCM streaming over WiFi AP
@@ -98,6 +110,7 @@ Hosts HTTP + WebSocket server
 Streams raw I2S microphone audio
 Applies real-time gain scaling
 Supports browser-based audio reconstruction
+
 🧬 Neural HUD Concept
 
 The intended VR/AR interface (future stage):
@@ -109,23 +122,29 @@ Motion vector sphere
 Environmental drift graph
 Directional anomaly indicators (“spider sense arcs”)
 EM-field distortion overlay (planned)
+
 🧭 Future Roadmap
+
 Phase 1 — Stabilization
 Clean sensor fusion pipeline
 Separate audio + motion threads
 Improve WebSocket buffering stability
+
 Phase 2 — Full Sensor Fusion
 Integrate IMU + BME280 real-time weighting
 Add magnetometer directional field
 Introduce Kalman filter smoothing
+
 Phase 3 — Neural HUD Expansion
 WebGL / Three.js VR HUD
 Spatial audio visualization
 Directional anomaly cones
+
 Phase 4 — EM Field Layer (Experimental)
 Synthetic EM anomaly detection layer
 Environmental “disturbance mapping”
 Multi-sensor prediction engine
+
 ⚠️ Safety / Reality Boundary Note
 
 This project does not detect real “threats” or consciousness-level phenomena.
