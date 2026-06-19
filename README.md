@@ -1,3 +1,7 @@
+![Basic-Home-Security-System](assest/ChatGPT Image Jun 18, 2026, 01_10_36 AM.png)
+![Status](https://img.shields.io/badge/status-experimental-red)
+![ESP32](https://img.shields.io/badge/platform-ESP32-blue)
+
 <p align="center">
   <a href="https://awakenfury.github.io/Cyber-Bio-Neural-Perception-HUD/">
     🌐 Live Demo
