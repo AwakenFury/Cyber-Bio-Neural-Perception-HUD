@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTech Neural Audio Sync</title>
+    <style>
+        :root {
+            --bg-dark: #050b14;
+            --bg-card: #0a1424;
+            --accent-cyan: #00f0ff;
+            --accent-blue: #0077ff;
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+            --border-color: #1e293b;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        header {
+            grid-column: span 12;
+            background: linear-gradient(90deg, #091322 0%, #040a14 100%);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.05);
+        }
+
+        .brand h1 {
+            color: var(--accent-cyan);
+            margin: 0;
+            font-size: 26px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+        }
+
+        .brand p {
+            color: var(--text-muted);
+            margin: 5px 0 0 0;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .meta-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .stat-box {
+            text-align: right;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            color: var(--text-main);
+            font-weight: bold;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .col-4 { grid-column: span 4; }
+        .col-6 { grid-column: span 6; }
+        .col-8 { grid-column: span 8; }
+
+        h2 {
+            color: var(--accent-cyan);
+            font-size: 15px;
+            margin-top: 0;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Waveform Component Wrapper */
+        .waveform-container {
+            width: 100%;
+            height: 160px;
+            background: #040914;
+            border: 1px solid #111e30;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .waveform-container canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 11px;
+            color: var(--accent-cyan);
+            background: rgba(0, 240, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 3px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 10px 0;
+            border-bottom: 1px solid #111e30;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        li span {
+            color: var(--text-muted);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        @media (max-width: 900px) {
+            .col-4, .col-8 { grid-column: span 12; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <!-- Header -->
+        <header>
+            <div class="brand">
+                <h1>Biotech Neural Audio Sync</h1>
+                <p>REAL-TIME I2S AUDIO STREAMING ENGINE</p>
+            </div>
+            <div class="meta-stats">
+                <div class="stat-box">
+                    <div class="stat-label">STATUS</div>
+                    <div class="stat-value" style="color: #00f0ff;">ONLINE</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Live Signal Visualizer Component -->
+        <div class="card col-8">
+            <h2>Live Audio Stream Visualizer</h2>
+            <div class="waveform-container">
+                <div class="status-badge">STREAM ACTIVE</div>
+                <canvas id="waveformCanvas"></canvas>
+            </div>
+        </div>
+
+        <!-- System Architecture Stats -->
+        <div class="card col-4">
+            <h2>Audio Specifications</h2>
+            <ul>
+                <li><span>Sample Rate</span> <strong>44,100 Hz</strong></li>
+                <li><span>Bit Depth</span> <strong>16-bit PCM</strong></li>
+                <li><span>Channels</span> <strong>Mono</strong></li>
+                <li><span>Transport</span> <strong>WebSocket</strong></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Live Simulation Engine Script -->
+    <script>
+        const canvas = document.getElementById('waveformCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Resize handler to match crisp display pixel boundaries
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let phase = 0;
+
+        function drawWaveform() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const midY = height / 2;
+            
+            // Draw baseline grid center row
+            ctx.strokeStyle = '#111e30';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, midY);
+            ctx.lineTo(width, midY);
+            ctx.stroke();
+
+            // Setup glow parameters matching the terminal styling
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#00f0ff';
+            ctx.strokeStyle = '#00f0ff';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+
+            // Calculate complex neural waveform combining multiple frequencies
+            for (let x = 0; x < width; x++) {
+                // Primary carrier wave
+                let angle1 = (x / width) * Math.PI * 8 + phase;
+                // Secondary noise jitter modulation
+                let angle2 = (x / width) * Math.PI * 24 - (phase * 2);
+                
+                // Form a cohesive baseline wave envelope shape
+                let amplitude = Math.sin(x / width * Math.PI) * 40; 
+                
+                // Synthesize baseline data offset values
+                let y = midY + (Math.sin(angle1) * amplitude) + (Math.cos(angle2) * (amplitude * 0.3));
+
+                if (x === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+
+            ctx.stroke();
+            ctx.shadowBlur = 0; // Reset shadow glow engine configuration
+
+            // Advance phase velocity parameter for the ongoing runtime step
+            phase += 0.05;
+            requestAnimationFrame(drawWaveform);
+        }
+
+        // Initialize simulation execution stack
+        drawWaveform();
+    </script>
+</body>
+</html>
