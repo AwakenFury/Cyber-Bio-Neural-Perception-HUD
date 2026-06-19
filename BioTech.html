@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTech Neural Audio Sync</title>
+    <style>
+        :root {
+            --bg-dark: #0a0f1d;
+            --bg-card: #111827;
+            --accent-cyan: #06b6d4;
+            --accent-blue: #3b82f6;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        header {
+            grid-column: span 12;
+            background: linear-gradient(90deg, #111827 0%, #071426 100%);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand h1 {
+            color: var(--accent-cyan);
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .brand p {
+            color: var(--text-muted);
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+
+        .meta-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .stat-box {
+            text-align: right;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .col-4 { grid-column: span 4; }
+        .col-6 { grid-column: span 6; }
+        .col-8 { grid-column: span 8; }
+        .col-12 { grid-column: span 12; }
+
+        h2 {
+            color: var(--accent-cyan);
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: #1e293b;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--accent-cyan);
+            border: 1px solid #334155;
+        }
+
+        .system-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .flow-node {
+            background: #1f2937;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            min-width: 100px;
+            font-size: 13px;
+            border: 1px solid #374151;
+        }
+
+        .flow-arrow {
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 8px 0;
+            border-bottom: 1px solid #1f2937;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        li span {
+            color: var(--text-muted);
+        }
+
+        pre {
+            background-color: #050b14;
+            padding: 14px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 0;
+            border: 1px solid #1e293b;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            color: #38bdf8;
+        }
+
+        .keyword { color: #f472b6; }
+        .function { color: #4ade80; }
+
+        @media (max-width: 900px) {
+            .col-4, .col-6, .col-8 { grid-column: span 12; }
+            .system-flow { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <!-- Main Top Bar Header -->
+        <header>
+            <div class="brand">
+                <h1>Biotech Neural Audio Sync</h1>
+                <p>Real-Time I2S Audio Streaming Engine via WebSockets</p>
+            </div>
+            <div class="meta-stats">
+                <div class="stat-box">
+                    <div class="stat-label">Sample Rate</div>
+                    <div class="stat-value">44.1 kHz</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Bit Depth</div>
+                    <div class="stat-value">16-bit PCM</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Channels</div>
+                    <div class="stat-value">Mono</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Project Overview -->
+        <div class="card col-8">
+            <h2>System Architecture</h2>
+            <div class="tech-tags">
+                <span class="tag">ESP32</span>
+                <span class="tag">I2S Audio</span>
+                <span class="tag">WebSocket</span>
+                <span class="tag">Web Audio API</span>
+            </div>
+            <div class="system-flow">
+                <div class="flow-node">ES8388 Mic Input</div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-node">ESP32 I2S Driver</div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-node">WebSocket Stream</div>
+                <div class="flow-arrow">&rarr;</div>
+                <div class="flow-node">Browser Audio API</div>
+            </div>
+        </div>
+
+        <!-- Network Setup Specifications -->
+        <div class="card col-4">
+            <h2>Network Setup</h2>
+            <ul>
+                <li><span>Mode</span> <strong>Access Point</strong></li>
+                <li><span>SSID</span> <strong>BioTech-Haptic-Portal</strong></li>
+                <li><span>Password</span> <strong>12345678</strong></li>
+                <li><span>Default URL</span> <strong>http://192.168.4.1</strong></li>
+            </ul>
+        </div>
+
+        <!-- Firmware/Hardware Code Details -->
+        <div class="card col-6">
+            <h2>Code Highlight: ESP32 I2S Loop</h2>
+            <pre><code><span class="keyword">void</span> <span class="function">i2s_read_task</span>() {
+    <span class="keyword">size_t</span> bytes_read;
+    <span class="function">i2s_read</span>(I2S_NUM_0, res_buf, CHUNK_SIZE, &bytes_read, portMAX_DELAY);
+    <span class="keyword">if</span> (bytes_read > 0) {
+        ws.<span class="function">binaryAll</span>(res_buf, bytes_read);
+    }
+}</code></pre>
+        </div>
+
+        <!-- Web Interface Parameters -->
+        <div class="card col-6">
+            <h2>Web Interface Specs</h2>
+            <ul>
+                <li><span>Audio Connection</span> <strong>Live Status Tracking</strong></li>
+                <li><span>Unlock Action</span> <strong>Tap-to-start Web Audio Context</strong></li>
+                <li><span>Reconnection</span> <strong>Automated WebSocket Retry</strong></li>
+                <li><span>Digital Attenuation</span> <strong>0% to 250% Variable Slider</strong></li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
